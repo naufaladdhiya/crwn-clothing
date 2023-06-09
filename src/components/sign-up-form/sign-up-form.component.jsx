@@ -42,10 +42,25 @@ const SignUpForm = () => {
       resetFormFields();
     } catch (error) {
       // handle error if user creation fails
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Email already in use');
-      } else {
-        console.log('user creation encountered an erro', error);
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          alert('Email already in use');
+          break;
+        case 'auth/password-too-short':
+          alert('Password too short');
+          break;
+        case 'auth/invalid-email':
+          alert('Invalid email');
+          break;
+        case 'auth/weak-password':
+          alert('Weak password');
+          break;
+        case 'auth/passwords-dont-match':
+          alert("Passwords don't match");
+          break;
+        default:
+          alert(error);
+          break;
       }
     }
   };
@@ -98,9 +113,7 @@ const SignUpForm = () => {
           onChange={handleChange}
         />
 
-        <Button type="submit">
-          Sign Up
-        </Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
