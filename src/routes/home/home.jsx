@@ -6,6 +6,7 @@ const Home = () => {
       id: 1,
       title: 'Hats',
       imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+      alt: 'hats',
     },
     {
       id: 2,
