@@ -1,22 +1,23 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
-import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+} from "../../utils/firebase/firebase.utils";
+import FormInput from "../form-input/form-input.component";
+import Button from "../button/button.component";
+
+import { SignUpContainer } from "./sign-up.styles.jsx";
 
 const defaultformField = {
-  displayName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  displayName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
 };
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultformField);
   const { displayName, email, password, confirmPassword } = formFields;
-
 
   const resetFormFields = () => {
     setFormFields(defaultformField);
@@ -37,27 +38,26 @@ const SignUpForm = () => {
         password
       );
 
-      
       await createUserDocumentFromAuth(user, { displayName });
-      
+
       // reset form fields if user creation is successful
       resetFormFields();
     } catch (error) {
       // handle error if user creation fails
       switch (error.code) {
-        case 'auth/email-already-in-use':
-          alert('Email already in use');
+        case "auth/email-already-in-use":
+          alert("Email already in use");
           break;
-        case 'auth/password-too-short':
-          alert('Password too short');
+        case "auth/password-too-short":
+          alert("Password too short");
           break;
-        case 'auth/invalid-email':
-          alert('Invalid email');
+        case "auth/invalid-email":
+          alert("Invalid email");
           break;
-        case 'auth/weak-password':
-          alert('Weak password');
+        case "auth/weak-password":
+          alert("Weak password");
           break;
-        case 'auth/passwords-dont-match':
+        case "auth/passwords-dont-match":
           alert("Passwords don't match");
           break;
         default:
@@ -75,7 +75,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Dont have an account?</h2>
       <span>Sign up with email and password</span>
       <form onSubmit={handleSubmit}>
@@ -117,7 +117,7 @@ const SignUpForm = () => {
 
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
